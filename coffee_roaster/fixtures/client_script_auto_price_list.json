@@ -1,0 +1,8 @@
+{
+  "doctype": "Client Script",
+  "name": "Auto Price List on Sales Order",
+  "dt": "Sales Order",
+  "script_type": "Client",
+  "module": "roaster",
+  "script": "frappe.ui.form.on(\"Sales Order\",{\n    onload(frm){set_price_list(frm);},\n    customer(frm){set_price_list(frm);}  \n});\nfunction set_price_list(frm){\n    if(!frm.doc.customer)return;\n    frappe.db.get_value(\"Customer\",frm.doc.customer,\"customer_channel\")\n        .then(r=>{\n            const ch=r.message.customer_channel;\n            const pl=ch===\"Wholesale\"?\"Coffee Wholesale - ETB\":\"Coffee Retail - ETB\";\n            if(frm.doc.selling_price_list!==pl){frm.set_value(\"selling_price_list\",pl);}\n        });\n}"
+}

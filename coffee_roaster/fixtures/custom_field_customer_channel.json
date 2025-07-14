@@ -1,0 +1,13 @@
+{
+  "doctype": "Custom Field",
+  "dt": "Customer",
+  "fieldname": "customer_channel",
+  "name": "Custome Channel",
+  "fieldtype": "Select",
+  "label": "Customer Category",
+  "insert_after": "customer_type",
+  "options": "Wholesale\nRetail",
+  "reqd": 1,
+  "in_standard_filter": 1,
+  "in_global_search": 1
+}

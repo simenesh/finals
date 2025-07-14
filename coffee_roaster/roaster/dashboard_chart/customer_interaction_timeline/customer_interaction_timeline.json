@@ -1,0 +1,16 @@
+{
+  "doctype": "Dashboard Chart",
+  "chart_name": "Customer Interaction Timeline",
+  "name": "Customer Interaction Timeline",
+  "chart_type": "Line",
+  "document_type": "Communication",
+  "filters_json": "[]",
+  "timespan": "Last Month",
+  "frequency": "Daily",
+  "is_public": 1,
+  "data": {
+    "labels": [],
+    "datasets": []
+  }
+}
+

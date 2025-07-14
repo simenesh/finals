@@ -1,0 +1,41 @@
+{
+  "doctype": "DocType",
+  "name": "Customer",
+  "module": "roaster",
+  "custom": 1,
+  "autoname": "format:CUST-{MM}{YY}-{#####}",
+  "fields": [
+    {
+      "fieldname": "full_name",
+      "label": "Full Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "email",
+      "label": "Email",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "phone",
+      "label": "Phone",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "customer_type",
+      "label": "Type",
+      "fieldtype": "Select",
+      "options": "Individual\nCompany",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

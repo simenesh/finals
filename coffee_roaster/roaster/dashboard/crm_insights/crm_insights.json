@@ -1,0 +1,17 @@
+{
+  "doctype": "Dashboard",
+  "module": "roaster",
+  "name": "CRM Insights",
+  "charts": [
+    {
+      "chart": "Top Communicated Customers",
+      "label": "Top Communicated Customers"
+    },
+    {
+      "chart": "Customer Interaction Timeline",
+      "label": "Customer Interaction Timeline"
+    }
+  ],
+  "label": "CRM Insights"
+}
+
