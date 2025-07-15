@@ -24,9 +24,6 @@ doctype_js = {
      "Roast Batch": "roaster/js/roast_batch.js"
     }
 
-scheduler_events = {
-    "all": ["coffee_roaster.machine_hooks.start_mqtt_listener"]
-}
 
 # You should export your new Workflow and Custom Fields via fixtures
 
