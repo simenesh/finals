@@ -11,7 +11,7 @@
   "in_list_view": 1,
 
   "name_field": "sample_id",
-  "autoname": "format:{roast_batch}-{date:YYYY}{date:MM}{date:DD}-{time:HH}{time:mm}{time:ss}-{#####}",
+  "autoname": "format:AF-{MM}{YY}-{#####}",
 
   "show_in_menu": 1,
  
@@ -194,7 +194,7 @@
      {
       "fieldname": "total_score",
       "label": "Total Score",
-      "fieldtype": "Float",
+      "fieldtype": "Int",
       "read_only": 1,
       "in_list_view": 1
     },

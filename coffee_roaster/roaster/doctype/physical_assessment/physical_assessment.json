@@ -294,7 +294,7 @@
     {
       "fieldname": "hull_husk_defects",
       "label": "Hull/Husk (Defects)",
-      "fieldtype": "Float",
+      "fieldtype": "Int",
       "read_only": 1
     },
     {
@@ -306,7 +306,7 @@
     {
       "fieldname": "slight_insect_damage_defects",
       "label": "Slight Insect Damage (Defects)",
-      "fieldtype": "Float",
+      "fieldtype": "Int",
       "read_only": 1
     },
     {
@@ -316,7 +316,7 @@
     {
       "fieldname": "total_full_defects",
       "label": "Total Full Defects",
-      "fieldtype": "Float",
+      "fieldtype": "Int",
       "read_only": 1
     },
     {
@@ -338,7 +338,7 @@
   {
     "fieldname": "screen10_count",
     "label": "#10 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
@@ -350,7 +350,7 @@
   {
     "fieldname": "screen11_count",
     "label": "#11 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
@@ -362,25 +362,25 @@
   {
     "fieldname": "screen12_count",
     "label": "#12 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen12_percent",
     "label": "#12 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen13_count",
     "label": "#13 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen13_percent",
     "label": "#13 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
@@ -390,7 +390,7 @@
   {
     "fieldname": "screen14_count",
     "label": "#14 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {

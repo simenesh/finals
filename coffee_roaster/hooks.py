@@ -54,7 +54,7 @@ fixtures = [
                 "Packaging Cost Item",
                 "Roasting Overhead Template",
                 "Roasting Overhead Template Item",
-                "Custom FieldS",
+                "Custom Field",
                 "Roaster Settings"
             ]]
         ]
