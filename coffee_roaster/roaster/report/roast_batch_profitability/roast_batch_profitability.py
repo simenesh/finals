@@ -1,15 +1,9 @@
-# Script Report ‒ Roast Batch Profitability
-# ----------------------------------------
-# Safe against missing filters (NoneType) and blank date range.
-
 import frappe
 from frappe.utils import flt
 
 def execute(filters=None):
-    # Always work with a dict-like object, even when report runs with no filters
     filters = frappe._dict(filters or {})
 
-    # Extract filter values safely
     company = filters.get("company")
     date_from, date_to = (filters.get("roast_date_range") or [None, None])
 
@@ -26,7 +20,7 @@ def execute(filters=None):
         """
         SELECT
             rb.name                          AS batch,
-            rb.posting_date                  AS date,
+            rb.roast_date                    AS date,
             bc.cost_per_kg                   AS cost_kg,
             sii.base_rate                    AS sell_kg,
             (sii.base_rate - bc.cost_per_kg) AS margin,
@@ -34,10 +28,11 @@ def execute(filters=None):
         FROM `tabBatch Cost` bc
         JOIN `tabRoast Batch`        rb  ON bc.batch_no = rb.name
         JOIN `tabSales Invoice Item` sii ON sii.batch_no = rb.name
-        WHERE (%(date_from)s IS NULL OR rb.posting_date >= %(date_from)s)
-          AND (%(date_to)s   IS NULL OR rb.posting_date <= %(date_to)s)
-          AND (%(company)s   IS NULL OR sii.company       = %(company)s)
-        ORDER BY rb.posting_date DESC
+        JOIN `tabSales Invoice`      si  ON si.name = sii.parent
+        WHERE (%(date_from)s IS NULL OR rb.roast_date >= %(date_from)s)
+          AND (%(date_to)s   IS NULL OR rb.roast_date <= %(date_to)s)
+          AND (%(company)s   IS NULL OR si.company = %(company)s)
+        ORDER BY rb.roast_date DESC
         """,
         {
             "date_from": date_from,

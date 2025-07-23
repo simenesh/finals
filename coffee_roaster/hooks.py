@@ -39,24 +39,28 @@ fixtures = [
     "Server Script",
     "Report",
     {
-        "dt": "Print Format",
-        "filters": [
-            ["name", "in", ["Clean Invoice"]]
-        ]
+        "dt": "Workflow",
+        "filters": [["name", "in", [
+            "Roast Batch Workflow",
+            "Roasting Overhead Template Workflow",
+            "Roasting Overhead Template Item Workflow",
+            "Roasting Overhead Item Workflow",
+            "Raw Bean Cost Item Workflow",
+            "Batch Cost Workflow",
+            "Packaging Cost Item Workflow"
+        ]]]
     },
     {
         "dt": "DocType",
-        "filters": [
-            ["name", "in", [
-                "Batch Cost",
-                "Raw Bean Cost Item",
-                "Overhead Item",
-                "Packaging Cost Item",
-                "Roasting Overhead Template",
-                "Roasting Overhead Template Item",
-                "Custom Field",
-                "Roaster Settings"
-            ]]
-        ]
+        "filters": [["name", "in", [
+            "Batch Cost",
+            "Raw Bean Cost Item",
+            "Overhead Item",
+            "Packaging Cost Item",
+            "Roasting Overhead Template",
+            "Roasting Overhead Template Item",
+            "Custom Field",
+            "Roaster Settings"
+        ]]]
     }
 ]

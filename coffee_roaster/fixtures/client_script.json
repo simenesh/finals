@@ -2,17 +2,6 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
-  "dt": "Sales Invoice",
-  "enabled": 0,
-  "modified": "2025-07-13 17:02:12.635710",
-  "module": null,
-  "name": "Sales Invoice script",
-  "script": "frappe.ui.form.on('Sales Invoice', {\n    validate(frm) {\n        // run only if flagged as VAT invoice\n        if (frm.doc.is_vat_invoice) {\n            // pick rate (allow per-invoice override)\n            let rate = flt(frm.doc.vat_rate || 0);\n            // net total BEFORE existing taxes\n            let base = flt(frm.doc.net_total || 0);\n\n            frm.doc.net_total_excl_vat = base;\n            frm.doc.vat_amount = (rate / 100) * base;\n\n            // ensure a VAT row exists in taxes table\n            let vat_row = (frm.doc.taxes || []).find(\n                r => r.account_head && r.account_head.includes(\"VAT Liability\")\n            );\n            if (!vat_row) {\n                vat_row = frm.add_child(\"taxes\", {\n                    charge_type: \"On Net Total\",\n                    account_head: \"VAT Liability\",\n                    rate: rate\n                });\n            } else {\n                vat_row.rate = rate;\n            }\n        } else {\n            frm.doc.vat_amount = 0;\n            frm.doc.net_total_excl_vat = frm.doc.net_total;\n            // optionally remove VAT row if box unticked\n            frm.doc.taxes = (frm.doc.taxes || [])\n                .filter(r => !(r.account_head && r.account_head.includes(\"VAT Liability\")));\n        }\n    }\n});\n",
-  "view": "Form"
- },
- {
-  "docstatus": 0,
-  "doctype": "Client Script",
   "dt": "Green Bean Assessment",
   "enabled": 1,
   "modified": "2025-06-22 09:59:46.519872",

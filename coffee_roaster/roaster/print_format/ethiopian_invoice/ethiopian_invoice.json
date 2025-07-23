@@ -1,0 +1,9 @@
+{
+  "doctype": "Print Format",
+  "name": "Ethiopian Invoice Format",
+  "doc_type": "Sales Invoice",
+  "custom_format": 1,
+  "default": 1,
+  "html": "Custom format in external HTML file",
+  "disabled": 0
+}
