@@ -8536,7 +8536,26 @@
   "report_name": "SKU P&L Profit",
   "report_script": null,
   "report_type": "Script Report",
-  "roles": [],
+  "roles": [
+   {
+    "parent": "SKU P&L Profit",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
+   },
+   {
+    "parent": "SKU P&L Profit",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "SKU P&L Profit",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Roast Operator"
+   }
+  ],
   "timeout": 0
  },
  {

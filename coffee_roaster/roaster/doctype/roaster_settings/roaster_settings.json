@@ -69,19 +69,30 @@
       "fieldtype": "Link",
       "options": "Account"
     },
-   {
+  {
   "fieldname": "vat_rate",
-  "label": "VAT Rate (%)",
+  "label": "Default VAT Rate (%)",
   "fieldtype": "Float",
-  "reqd": 1,
   "default": 15
 },
+{
+  "fieldname": "vat_account",
+  "label": "Default VAT Account",
+  "fieldtype": "Link",
+  "options": "Account",
+  "reqd": 1
+},
     {
-      "fieldname": "default_withholding_rate",
-      "label": "Default Withholding Tax Rate (%)",
-      "fieldtype": "Float",
-      "default": 2
-    },
+  "fieldname": "withholding_rate",
+  "label": "Withholding Rate (%)",
+  "fieldtype": "Float"
+},
+{
+  "fieldname": "withholding_account",
+  "label": "Withholding Account",
+  "fieldtype": "Link",
+  "options": "Account"
+},
     {
       "fieldname": "enable_auto_qc_blocking",
       "label": "Enable QC Auto Blocking",
