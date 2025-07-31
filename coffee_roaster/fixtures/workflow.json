@@ -147,5 +147,76 @@
   "workflow_data": null,
   "workflow_name": "Roast Batch Workflow",
   "workflow_state_field": "status"
- }
+ },
+
+  {
+    "doctype": "Workflow",
+    "name": "Lead Workflow",
+    "document_type": "Lead",
+    "workflow_state_field": "status",
+    "is_active": 1,
+    "states": [
+      {
+        "state": "Open",
+        "doc_status": 0,
+        "is_initial_state": 1
+      },
+      {
+        "state": "Qualified",
+        "doc_status": 0
+      },
+      {
+        "state": "Customer",
+        "doc_status": 1
+      }
+    ],
+    "transitions": [
+      {
+        "state": "Open",
+        "action": "Qualify",
+        "next_state": "Qualified"
+      },
+      {
+        "state": "Qualified",
+        "action": "Convert to Customer",
+        "next_state": "Customer"
+      }
+    ],
+    "send_email_alert": 1
+  },
+  {
+    "doctype": "Workflow",
+    "name": "Loyalty Profile Workflow",
+    "document_type": "Loyalty Profile",
+    "workflow_state_field": "status",
+    "is_active": 1,
+    "states": [
+      {
+        "state": "Enrolled",
+        "doc_status": 0,
+        "is_initial_state": 1
+      },
+      {
+        "state": "Active",
+        "doc_status": 0
+      },
+      {
+        "state": "Suspended",
+        "doc_status": 0
+      }
+    ],
+    "transitions": [
+      {
+        "state": "Enrolled",
+        "action": "Activate",
+        "next_state": "Active"
+      },
+      {
+        "state": "Active",
+        "action": "Suspend",
+        "next_state": "Suspended"
+      }
+    ],
+    "send_email_alert": 1
+  }
 ]

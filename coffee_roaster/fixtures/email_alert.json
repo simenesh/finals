@@ -1,0 +1,30 @@
+[
+  {
+    "doctype": "Email Alert",
+    "name": "Notify Qualified Lead",
+    "document_type": "Lead",
+    "subject": "Lead {{ doc.name }} Qualified",
+    "message": "Lead {{ doc.lead_name }} has been qualified.",
+    "event": "Workflow",
+    "condition": "doc.status == 'Qualified'",
+    "recipients": [
+      {
+        "receiver_by_role": "CRM Manager"
+      }
+    ]
+  },
+  {
+    "doctype": "Email Alert",
+    "name": "Loyalty Profile Suspended",
+    "document_type": "Loyalty Profile",
+    "subject": "Loyalty Profile Suspended",
+    "message": "{{ doc.customer }}\u2019s loyalty profile has been suspended.",
+    "event": "Workflow",
+    "condition": "doc.status == 'Suspended'",
+    "recipients": [
+      {
+        "receiver_by_role": "System Manager"
+      }
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+[
+  {
+    "doctype": "Custom DocPerm",
+    "parent": "Customer Interaction",
+    "role": "CRM User",
+    "permlevel": 0,
+    "read": 1,
+    "create": 1
+  },
+  {
+    "doctype": "Custom DocPerm",
+    "parent": "Lead",
+    "role": "CRM User",
+    "permlevel": 0,
+    "read": 1,
+    "create": 1,
+    "write": 1
+  },
+  {
+    "doctype": "Custom DocPerm",
+    "parent": "Lead",
+    "role": "CRM Manager",
+    "permlevel": 0,
+    "read": 1,
+    "create": 1,
+    "write": 1,
+    "submit": 1,
+    "cancel": 1,
+    "amend": 1
+  },
+  {
+    "doctype": "Custom DocPerm",
+    "parent": "Loyalty Profile",
+    "role": "CRM Manager",
+    "permlevel": 0,
+    "read": 1,
+    "create": 1,
+    "write": 1,
+    "submit": 1
+  },
+  {
+    "doctype": "Custom DocPerm",
+    "parent": "RTM Assignment",
+    "role": "System Manager",
+    "permlevel": 0,
+    "read": 1,
+    "create": 1,
+    "write": 1,
+    "submit": 1,
+    "cancel": 1,
+    "amend": 1
+  }
+]

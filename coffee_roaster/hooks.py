@@ -58,6 +58,13 @@ fixtures = [
             "Packaging Cost Item Workflow"
         ]]]
     },
+    {
+    [
+    {
+        "dt": "Report",
+        "filters": [["name", "=", "Coffee Quality Report"]]
+    }
+]},
 
     # Roaster DocTypes
     {
@@ -80,6 +87,23 @@ fixtures = [
             "Loyalty Profile",
             "Customer Interaction",
             "RTM Assignment"
+        ]]]
+    },
+{"dt": "Custom DocPerm"},
+    {"dt": "Email Alert"},
+    {
+        "dt": "Workflow",
+        "filters": [["name", "in", [
+            "Roast Batch Workflow",
+            "Roasting Overhead Template Workflow",
+            "Roasting Overhead Template Item Workflow",
+            "Roasting Overhead Item Workflow",
+            "Raw Bean Cost Item Workflow",
+            "Batch Cost Workflow",
+            "Packaging Cost Item Workflow",
+            "Lead Workflow",
+            "Customer Interaction Workflow",
+            "Loyalty Profile Workflow"
         ]]]
     }
 ]

@@ -396,43 +396,43 @@
   {
     "fieldname": "screen14_percent",
     "label": "#14 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen15_count",
     "label": "#15 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen15_percent",
     "label": "#15 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen16_count",
     "label": "#16 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen16_percent",
     "label": "#16 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen17_count",
     "label": "#17 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen17_percent",
     "label": "#17 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
@@ -442,49 +442,49 @@
   {
     "fieldname": "screen18_count",
     "label": "#18 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen18_percent",
     "label": "#18 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen19_count",
     "label": "#19 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen19_percent",
     "label": "#19 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen20_count",
     "label": "#20 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen20_percent",
     "label": "#20 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen21_count",
     "label": "#21 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen21_percent",
     "label": "#21 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
@@ -494,25 +494,25 @@
   {
     "fieldname": "screen22_count",
     "label": "#22 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen22_percent",
     "label": "#22 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
   {
     "fieldname": "screen23_count",
     "label": "#23 Count (g)",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "default": 0
   },
   {
     "fieldname": "screen23_percent",
     "label": "#23 %",
-    "fieldtype": "Float",
+    "fieldtype": "Int",
     "read_only": 1
   },
 
