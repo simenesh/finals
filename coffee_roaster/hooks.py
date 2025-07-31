@@ -33,11 +33,19 @@ doctype_js = {
 #Data to be exported with the app
 # Data to be exported with the app
 fixtures = [
-    "Custom Field",
+    # Generic core customizations
     "Property Setter",
     "Client Script",
     "Server Script",
-    "Report",
+
+    # All custom fields (safe even if filtered below)
+    {"dt": "Custom Field"},
+
+    # Custom reports and dashboard charts
+    {"dt": "Report"},
+    {"dt": "Dashboard Chart"},
+
+    # Workflows
     {
         "dt": "Workflow",
         "filters": [["name", "in", [
@@ -50,6 +58,8 @@ fixtures = [
             "Packaging Cost Item Workflow"
         ]]]
     },
+
+    # Roaster DocTypes
     {
         "dt": "DocType",
         "filters": [["name", "in", [
@@ -59,8 +69,17 @@ fixtures = [
             "Packaging Cost Item",
             "Roasting Overhead Template",
             "Roasting Overhead Template Item",
-            "Custom Field",
             "Roaster Settings"
+        ]]]
+    },
+
+    # CRM-specific DocTypes
+    {
+        "dt": "DocType",
+        "filters": [["name", "in", [
+            "Loyalty Profile",
+            "Customer Interaction",
+            "RTM Assignment"
         ]]]
     }
 ]

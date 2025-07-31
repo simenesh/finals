@@ -55,7 +55,9 @@
        "action": "Fail and Cancel",
        "allowed": "QC Officer",
        "next_state": "Cancelled",
-       "state": "Quality Control"
+       "state": "Quality Control",
+        "doc_status": 1,
+  "allow_edit": "System Manager"
       }
      ],
      "workflow_state_field": "status"
