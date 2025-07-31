@@ -43,9 +43,7 @@ fixtures = [
 
     # Custom permissions and notifications
     {"dt": "Custom DocPerm"},
-    {"dt": "Email Alert"},
-
-    # Custom reports and dashboard charts
+       # Custom reports and dashboard charts
     {"dt": "Report", "filters": [["name", "in", [
         "Coffee Quality Report",
         "Lead Interest Level",
