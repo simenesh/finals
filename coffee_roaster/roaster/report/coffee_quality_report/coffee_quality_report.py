@@ -24,15 +24,8 @@ def get_data():
             pa.roast_batch,
             pa.sample_id,
             pa.total_score AS physical_score,
-            da.total_score AS descriptive_score,
-            ea.total_score AS extrinsic_score,
-            aa.total_score AS affective_score
-        FROM `tabPhysical Assessment` pa
-        LEFT JOIN `tabDescriptive Assessment` da ON da.sample_id = pa.sample_id
-        LEFT JOIN `tabExtrinsic Assessment` ea ON ea.sample_id = pa.sample_id
-        LEFT JOIN `tabAffective Assessment` aa ON aa.sample_id = pa.sample_id
-        WHERE pa.docstatus = 1
-    """, as_dict=True)
+            FROM `tabPhysical Assessment` pa
+           """, as_dict=True)
 
     for row in assessments:
         scores = [flt(row.get(k)) for k in ("physical_score", "descriptive_score", "extrinsic_score", "affective_score") if row.get(k) is not None]

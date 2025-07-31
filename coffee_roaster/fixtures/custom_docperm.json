@@ -1,6 +1,7 @@
 [
   {
     "doctype": "Custom DocPerm",
+    "name": "Custom DocPerm-Sales Manager-Customer",
     "parent": "Customer Interaction",
     "role": "CRM User",
     "permlevel": 0,

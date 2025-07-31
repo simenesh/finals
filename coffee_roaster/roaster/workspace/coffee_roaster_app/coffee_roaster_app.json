@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"Tap5dsZ_tJ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h1\\\">Quality Management</span>\",\"col\":12}},{\"id\":\"9hJ8QqV5Y8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Physical Assessment\",\"col\":3}},{\"id\":\"Tyv-EwnOfd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Descriptive Assessment\",\"col\":3}},{\"id\":\"8-82QSuEMo\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Extrinsic Assessment\",\"col\":3}},{\"id\":\"zs1Qf9z5JZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Affective Assessment\",\"col\":3}},{\"id\":\"louPnoe_1Y\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"Bgx_P0V9TF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Roast Batch Profitability\",\"col\":3}},{\"id\":\"niVAwrnZZq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Batch Cost\",\"col\":3}},{\"id\":\"UF6qgicrIs\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Coffee Quality Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"Tap5dsZ_tJ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h1\\\">Quality Management</span>\",\"col\":12}},{\"id\":\"9hJ8QqV5Y8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Physical Assessment\",\"col\":3}},{\"id\":\"Tyv-EwnOfd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Descriptive Assessment\",\"col\":3}},{\"id\":\"8-82QSuEMo\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Extrinsic Assessment\",\"col\":3}},{\"id\":\"zs1Qf9z5JZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Affective Assessment\",\"col\":3}},{\"id\":\"louPnoe_1Y\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"Bgx_P0V9TF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Roast Batch Profitability\",\"col\":3}},{\"id\":\"niVAwrnZZq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Batch Cost\",\"col\":3}}]",
  "creation": "2025-07-05 17:09:47.824005",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Coffee Roaster App",
  "links": [],
- "modified": "2025-07-31 22:23:56.345959",
+ "modified": "2025-07-31 23:19:56.944285",
  "modified_by": "Administrator",
  "module": "roaster",
  "name": "Coffee Roaster App",
@@ -48,14 +48,6 @@
    "link_to": "Batch Cost",
    "stats_filter": "[]",
    "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Coffee Quality Report",
-   "link_to": "Coffee Quality Report",
-   "report_ref_doctype": "Extrinsic Assessment",
-   "type": "Report"
   },
   {
    "color": "Grey",

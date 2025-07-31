@@ -515,7 +515,14 @@
     "fieldtype": "Int",
     "read_only": 1
   },
-
+{
+  "fieldname": "total_score",
+  "label": "Total Score",
+  "fieldtype": "Float",
+  "read_only": 1,
+  "in_list_view": 1,
+  "description": "Computed score based on defect counts and other factors"
+},
     {
       "fieldname": "sec_break_summary",
       "fieldtype": "Section Break",
