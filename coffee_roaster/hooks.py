@@ -38,72 +38,51 @@ fixtures = [
     "Client Script",
     "Server Script",
 
-    # All custom fields (safe even if filtered below)
+    # All custom fields
     {"dt": "Custom Field"},
 
+    # Custom permissions and notifications
+    {"dt": "Custom DocPerm"},
+    {"dt": "Email Alert"},
+
     # Custom reports and dashboard charts
-    {"dt": "Report"},
+    {"dt": "Report", "filters": [["name", "in", [
+        "Coffee Quality Report",
+        "Lead Interest Level",
+        "Leads by RTM Channel",
+        "Loyalty Profile Summary"
+    ]]]},
     {"dt": "Dashboard Chart"},
 
     # Workflows
-    {
-        "dt": "Workflow",
-        "filters": [["name", "in", [
-            "Roast Batch Workflow",
-            "Roasting Overhead Template Workflow",
-            "Roasting Overhead Template Item Workflow",
-            "Roasting Overhead Item Workflow",
-            "Raw Bean Cost Item Workflow",
-            "Batch Cost Workflow",
-            "Packaging Cost Item Workflow"
-        ]]]
-    },
-    {
-    [
-    {
-        "dt": "Report",
-        "filters": [["name", "=", "Coffee Quality Report"]]
-    }
-]},
+    {"dt": "Workflow", "filters": [["name", "in", [
+        "Roast Batch Workflow",
+        "Roasting Overhead Template Workflow",
+        "Roasting Overhead Template Item Workflow",
+        "Roasting Overhead Item Workflow",
+        "Raw Bean Cost Item Workflow",
+        "Batch Cost Workflow",
+        "Packaging Cost Item Workflow",
+        "Lead Workflow",
+        "Customer Interaction Workflow",
+        "Loyalty Profile Workflow"
+    ]]]},
 
     # Roaster DocTypes
-    {
-        "dt": "DocType",
-        "filters": [["name", "in", [
-            "Batch Cost",
-            "Raw Bean Cost Item",
-            "Overhead Item",
-            "Packaging Cost Item",
-            "Roasting Overhead Template",
-            "Roasting Overhead Template Item",
-            "Roaster Settings"
-        ]]]
-    },
+    {"dt": "DocType", "filters": [["name", "in", [
+        "Batch Cost",
+        "Raw Bean Cost Item",
+        "Overhead Item",
+        "Packaging Cost Item",
+        "Roasting Overhead Template",
+        "Roasting Overhead Template Item",
+        "Roaster Settings"
+    ]]]},
 
     # CRM-specific DocTypes
-    {
-        "dt": "DocType",
-        "filters": [["name", "in", [
-            "Loyalty Profile",
-            "Customer Interaction",
-            "RTM Assignment"
-        ]]]
-    },
-{"dt": "Custom DocPerm"},
-    {"dt": "Email Alert"},
-    {
-        "dt": "Workflow",
-        "filters": [["name", "in", [
-            "Roast Batch Workflow",
-            "Roasting Overhead Template Workflow",
-            "Roasting Overhead Template Item Workflow",
-            "Roasting Overhead Item Workflow",
-            "Raw Bean Cost Item Workflow",
-            "Batch Cost Workflow",
-            "Packaging Cost Item Workflow",
-            "Lead Workflow",
-            "Customer Interaction Workflow",
-            "Loyalty Profile Workflow"
-        ]]]
-    }
+    {"dt": "DocType", "filters": [["name", "in", [
+        "Loyalty Profile",
+        "Customer Interaction",
+        "RTM Assignment"
+    ]]]}
 ]
