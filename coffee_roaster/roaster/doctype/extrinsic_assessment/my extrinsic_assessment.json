@@ -28,15 +28,14 @@
       "reqd": 1
     },
     {
-      "fieldname": "roast_batch",
-      "label": "Roast Batch",
+      "fieldname": "sec_sample_information",
+      "label": "Sample Information",
       "fieldtype": "Section Break"
     },
     {
-            "fieldname": "roast_batch",
-      "label": "Roast Batch",
-      "fieldtype": "Link",
-      "options": "Roast Batch",
+      "fieldname": "sample_no",
+      "label": "Sample No.",
+      "fieldtype": "Data",
       "reqd": 1,
       "in_list_view": 1
     },
@@ -176,7 +175,7 @@
     {
       "fieldname": "certifications",
       "label": "Certifications",
-      "fieldtype": "Link",
+      "fieldtype": "Table MultiSelect",
       "options": "Certification",
       "reqd": 1
     },

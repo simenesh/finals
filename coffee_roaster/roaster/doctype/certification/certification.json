@@ -15,7 +15,7 @@
       "fieldname": "certificate_type",
       "label": "Certificate Type",
       "fieldtype": "Select",
-      "options": "Origin\nOrganic\nFairtrade\nInternal QC\nExport\nOther",
+      "options": "4C\nFair Ttrade\nOrganic\nIRainforest Alliance\nOther",
       "reqd": 1
     },
     {

@@ -65,6 +65,7 @@ fixtures = [
         "Customer Interaction Workflow",
         "Loyalty Profile Workflow"
     ]]]},
+      {"dt": "Workflow", "filters": [["name", "=", "Lead Workflow"]]},
 
     # Roaster DocTypes
     {"dt": "DocType", "filters": [["name", "in", [
