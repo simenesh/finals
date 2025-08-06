@@ -1,0 +1,21 @@
+{
+  "doctype": "DocType",
+  "name": "Combined Coffee Report",
+  "module": "roaster",
+  "is_query_report": 1,
+  "fields": [
+    {
+      "fieldname": "roast_batch",
+      "label": "Roast Batch",
+      "fieldtype": "Link",
+      "options": "Roast Batch",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1
+    }
+  ]
+}

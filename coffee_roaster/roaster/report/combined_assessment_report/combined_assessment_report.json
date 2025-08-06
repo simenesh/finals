@@ -1,39 +1,21 @@
 {
- "add_total_row": 1,
- "add_translate_data": 0,
- "columns": [],
- "creation": "2025-08-05 14:11:25.785692",
- "disabled": 0,
- "docstatus": 0,
- "doctype": "Report",
- "filters": [
+  "report_name": "Combined Assessment Report",
+   "name": "Combined Assessment Report", 
+  "doctype": "Descriptive Assessment",
+  "is_standard": "Yes",
+  "report_type": "Script Report",
+  "module": "roaster",
+  "ref_doctype": "Descriptive Assessment",
+  "prepared_report": 0,
+  "add_total_row": 0,
+  "filters": [
     {
-        "fieldname": "roast_batch",
-        "label": "Roast Batch",
-        "fieldtype": "Link",
-        "options": "Roast Batch",
-        "reqd": 1
+      "fieldname": "roast_batch",
+      "label": "Roast Batch",
+      "fieldtype": "Link",
+      "options": "Roast Batch",
+      "default": "",
+      "reqd": 0
     }
- ],
- "idx": 0,
- "is_standard": "No",
- "json": "1",
- "letterhead": null,
- "modified": "2025-08-05 14:11:45.848818",
- "modified_by": "Administrator",
- "module": "roaster",
- "name": "Combined Assessment Report",
- "owner": "Administrator",
- "prepared_report": 0,
- "query": "# Script Report: Combined Assessment Report\n# frappe and _ are available; avoid external imports\n\ndef execute(filters=None):\n    # 1) Require roast_batch filter\n    if not filters or not filters.get(\"roast_batch\"):\n        frappe.throw(_(\"Please select a Roast Batch\"))\n    roast_batch = filters[\"roast_batch\"]\n\n    # 2) Define field mappings based on the provided DocTypes for maintainability.\n    DESCRIPTIVE_FIELDS = [\n        \"sample_no\", \"roast_date\", \"roast_time\", \"roast_level\",\n        \"fragrance_intensity\", \"aroma_intensity\", \"acidity_intensity\",\n        \"sweetness_intensity\", \"mouthfeel_intensity\", \"acidity_notes\", \"sweetness_notes\"\n    ]\n\n    EXTRINSIC_FIELDS = [\n        \"assessor_name\", \"assessment_date\", \"purpose\", \"country\", \"region\",\n        \"farm_or_coop_name\", \"producer_name\", \"species\", \"variety\", \"harvest_date_year\",\n        \"other_farming_attribute\", \"farming_notes\", \"processor_name\", \"process_type\",\n        \"processing_notes\", \"trading_size_grade\", \"trading_ico_number\",\n        \"trading_other_grade\", \"trading_other_attribute\", \"trading_notes\",\n        \"certifications\", \"certification_notes\", \"general_notes\"\n    ]\n\n    # Checkbox flag groups from the 'Descriptive Assessment' DocType\n    ATTRIBUTE_FLAGS = {\n        \"fragrance\": [\n            \"floral\", \"fruity\", \"berry\", \"dried_fruit\", \"citrus_fruit\", \"sweet\",\n            \"brown_sugar\", \"vanilla\", \"roasted\", \"cereal\", \"nutty_cocoa\", \"cocoa\",\n            \"burnt\", \"tobacco\", \"spice\", \"sour\", \"fermented\", \"green_veg\",\n            \"musty_earthy\", \"woody\", \"chemical\", \"other\"\n        ],\n        \"aroma\": [\n            \"floral\", \"fruity\", \"berry\", \"dried_fruit\", \"citrus_fruit\", \"sweet\",\n            \"brown_sugar\", \"vanilla\", \"roasted\", \"cereal\", \"nutty_cocoa\", \"cocoa\",\n            \"burnt\", \"tobacco\", \"spice\", \"sour\", \"fermented\", \"green_veg\",\n            \"musty_earthy\", \"woody\", \"chemical\", \"other\"\n        ],\n        \"mouthfeel\": [\"rough\", \"oily\", \"smooth\", \"drying\", \"metallic\"]\n    }\n\n    # Generate full field names for all checkbox flags\n    flag_fields = [f\"{group}_{flag}\" for group, flags in ATTRIBUTE_FLAGS.items() for flag in flags]\n\n    # 3) Fetch all 'Descriptive Assessment' records for the selected batch\n    desc_records = frappe.get_all(\n        \"Descriptive Assessment\",\n        fields=DESCRIPTIVE_FIELDS + flag_fields,\n        filters={\"roast_batch\": roast_batch},\n        ignore_permissions=True,\n        as_list=False\n    )\n\n    # 4) Fetch the single latest 'Extrinsic Assessment' record for the selected batch\n    ext_entries = frappe.get_all(\n        \"Extrinsic Assessment\",\n        fields=EXTRINSIC_FIELDS,\n        filters={\"roast_batch\": roast_batch},\n        order_by=\"assessment_date desc, creation desc\", # Get the most recent entry\n        limit=1,\n        ignore_permissions=True,\n        as_list=False\n    )\n    ext_data = ext_entries[0] if ext_entries else {}\n\n    # 5) Build the report rows by combining the data\n    data = []\n    if desc_records:\n        # If descriptive data exists, create a row for each entry\n        for record in desc_records:\n            row = {}\n            # Add all descriptive and extrinsic data to the row\n            row.update({k: record.get(k) for k in DESCRIPTIVE_FIELDS})\n            row.update({k: ext_data.get(k) for k in EXTRINSIC_FIELDS})\n\n            # Aggregate checkbox flags into readable, comma-separated strings\n            for group, flags in ATTRIBUTE_FLAGS.items():\n                row[f\"{group}_attributes\"] = aggregate_flags(record, group, flags)\n            \n            data.append(row)\n    elif ext_data:\n        # If ONLY extrinsic data exists, create a single row for it\n        data.append(ext_data)\n\n    # 6) Normalize all data for safe rendering in the report\n    normalized_data = [normalize_row(row) for row in data]\n    \n    # If no data was found after all queries, inform the user and exit gracefully.\n    if not normalized_data:\n        frappe.msgprint(_(\"No assessment data found for the selected Roast Batch.\"))\n        return [], []\n\n    # 7) Define all possible columns and then filter out any that are completely empty\n    columns = get_column_definitions()\n    \n    # Determine which columns actually contain data across all rows\n    used_columns = {key for row in normalized_data for key, val in row.items() if val not in (None, \"\", [], 0)}\n    # Ensure certain key columns are always shown\n    always_include = {\"sample_no\", \"roast_date\", \"roast_time\", \"roast_level\"}\n    \n    final_columns = [c for c in columns if c[\"fieldname\"] in used_columns or c[\"fieldname\"] in always_include]\n\n    return final_columns, normalized_data\n\n\ndef aggregate_flags(doc, group_name, flags):\n    \"\"\"Helper function to create a comma-separated string from a list of checkbox fields.\"\"\"\n    labels = [\n        _(flag.replace(\"_\", \" \").title())\n        for flag in flags\n        if doc.get(f\"{group_name}_{flag}\")\n    ]\n    return \", \".join(labels)\n\n\ndef normalize_row(row):\n    \"\"\"Makes every field in a row safe for the report (no None values or complex types).\"\"\"\n    out = {}\n    for k, v in row.items():\n        if v is None:\n            out[k] = \"\"\n        elif isinstance(v, (int, float)):\n            out[k] = v\n        else:\n            # Force everything else to a string type for consistency\n            out[k] = str(v)\n    return out\n\n\ndef get_column_definitions():\n    \"\"\"Returns a list of all possible column dictionaries for the report.\"\"\"\n    return [\n        {\"label\": _(label), \"fieldname\": fname, \"fieldtype\": ftype, \"width\": w}\n        for label, fname, ftype, w in [\n            (\"Sample No.\", \"sample_no\", \"Data\", 80),\n            (\"Roast Date\", \"roast_date\", \"Date\", 90),\n            (\"Roast Time\", \"roast_time\", \"Time\", 80),\n            (\"Roast Level\", \"roast_level\", \"Data\", 100),\n            (\"Fragrance Intensity\", \"fragrance_intensity\", \"Int\", 90),\n            (\"Fragrance Attributes\", \"fragrance_attributes\", \"Data\", 200),\n            (\"Aroma Intensity\", \"aroma_intensity\", \"Int\", 90),\n            (\"Aroma Attributes\", \"aroma_attributes\", \"Data\", 200),\n            (\"Acidity Intensity\", \"acidity_intensity\", \"Int\", 90),\n            (\"Acidity Notes\", \"acidity_notes\", \"Data\", 200),\n            (\"Sweetness Intensity\", \"sweetness_intensity\", \"Int\", 90),\n            (\"Sweetness Notes\", \"sweetness_notes\", \"Data\", 200),\n            (\"Mouthfeel Intensity\", \"mouthfeel_intensity\", \"Int\", 90),\n            (\"Mouthfeel Attributes\", \"mouthfeel_attributes\", \"Data\", 200),\n            (\"Assessor\", \"assessor_name\", \"Data\", 120),\n            (\"Assessment Date\", \"assessment_date\", \"Date\", 90),\n            (\"Purpose\", \"purpose\", \"Data\", 150),\n            (\"Country\", \"country\", \"Data\", 120),\n            (\"Region\", \"region\", \"Data\", 120),\n            (\"Farm/Co-op\", \"farm_or_coop_name\", \"Data\", 150),\n            (\"Producer\", \"producer_name\", \"Data\", 150),\n            (\"Species\", \"species\", \"Data\", 120),\n            (\"Variety\", \"variety\", \"Data\", 120),\n            (\"Harvest Date/Year\", \"harvest_date_year\", \"Data\", 120),\n            (\"Other Farming Attr.\", \"other_farming_attribute\", \"Data\", 200),\n            (\"Farming Notes\", \"farming_notes\", \"Data\", 200),\n            (\"Processor\", \"processor_name\", \"Data\", 150),\n            (\"Process Type\", \"process_type\", \"Data\", 100),\n            (\"Processing Notes\", \"processing_notes\", \"Data\", 200),\n            (\"Size Grade\", \"trading_size_grade\", \"Data\", 100),\n            (\"ICO Number\", \"trading_ico_number\", \"Data\", 120),\n            (\"Other Grade\", \"trading_other_grade\", \"Data\", 120),\n            (\"Other Trading Attr.\", \"trading_other_attribute\", \"Data\", 150),\n            (\"Trading Notes\", \"trading_notes\", \"Data\", 200),\n            (\"Certifications\", \"certifications\", \"Data\", 150),\n            (\"Certification Notes\", \"certification_notes\", \"Data\", 200),\n            (\"Overall Notes\", \"general_notes\", \"Data\", 200),\n        ]\n    ]",
- "ref_doctype": "Descriptive Assessment",
- "reference_report": "",
- "report_name": "Combined Assessment Report",
- "report_type": "Script Report",
- "roles": [
-  {
-   "role": "Sales Manager"
-  }
- ],
- "timeout": 0
+  ]
 }

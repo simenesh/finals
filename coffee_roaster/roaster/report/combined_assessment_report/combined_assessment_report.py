@@ -1,144 +1,139 @@
-# Script Report: Combined Assessment Report
+import frappe
+
 def execute(filters=None):
-    if not filters or not filters.get("roast_batch"):
-        # This will always show as a popup now (even if not in execute phase)
-        from frappe import _
-        import frappe
-        frappe.msgprint(_("Please select a Roast Batch"))
-        return [], []
-    roast_batch = filters["roast_batch"]
-    DESCRIPTIVE_FIELDS = [
-        "sample_no", "roast_date", "roast_time", "roast_level",
-        "fragrance_intensity", "aroma_intensity", "acidity_intensity",
-        "sweetness_intensity", "mouthfeel_intensity", "acidity_notes", "sweetness_notes"
+    filter_clause = ""
+    filter_vals = {}
+
+    # Apply roast_batch filter INSIDE the Descriptive Assessment subquery
+    if filters and filters.get("roast_batch"):
+        filter_clause = "AND roast_batch = %(roast_batch)s"
+        filter_vals["roast_batch"] = filters["roast_batch"]
+
+    query = f"""
+        SELECT
+            da.roast_batch,
+            da.sample_no,
+            da.roast_date,
+            da.roast_time,
+            da.roast_level,
+
+            ea.assessor_name,
+            ea.assessment_date,
+            ea.purpose,
+            ea.country,
+            ea.region,
+            ea.farm_or_coop_name,
+            ea.producer_name,
+            ea.species,
+            ea.variety,
+            ea.harvest_date_year,
+            ea.other_farming_attribute,
+            ea.farming_notes,
+            ea.processor_name,
+            ea.process_type,
+            ea.processing_notes,
+            ea.trading_size_grade,
+            ea.trading_ico_number,
+            ea.trading_other_grade,
+            ea.trading_other_attribute,
+            ea.trading_notes,
+            ea.certifications,
+            ea.certification_notes,
+            ea.general_notes,
+
+            pa.moisture,
+            pa.total_full_defects,
+            pa.max_screen_size,
+            pa.grade AS physical_grade,
+
+            aa.total_score AS affective_total_score,
+            aa.grade AS affective_grade,
+
+            pa.blue_green,
+            pa.bluish_green,
+            pa.green,
+            pa.greenish,
+            pa.yellow_green,
+            pa.pale_yellow,
+            pa.yellowish,
+            pa.brownish
+
+        FROM
+            (SELECT * FROM `tabDescriptive Assessment` WHERE docstatus < 2 {filter_clause} GROUP BY roast_batch) da
+        LEFT JOIN
+            (SELECT * FROM `tabExtrinsic Assessment` WHERE docstatus < 2 GROUP BY roast_batch) ea ON da.roast_batch = ea.roast_batch
+        LEFT JOIN
+            (SELECT * FROM `tabPhysical Assessment` WHERE docstatus < 2 GROUP BY roast_batch) pa ON da.roast_batch = pa.roast_batch
+        LEFT JOIN
+            (SELECT * FROM `tabAffective Assessment` WHERE docstatus < 2 GROUP BY roast_batch) aa ON da.roast_batch = aa.roast_batch
+        ORDER BY da.roast_batch DESC
+        LIMIT 100
+    """
+
+    data = frappe.db.sql(query, filter_vals, as_dict=True)
+
+    # --- Only show checked color fields ---
+    color_fields = [
+        ("blue_green", "Blue-Green"),
+        ("bluish_green", "Bluish-Green"),
+        ("green", "Green"),
+        ("greenish", "Greenish"),
+        ("yellow_green", "Yellow-Green"),
+        ("pale_yellow", "Pale Yellow"),
+        ("yellowish", "Yellowish"),
+        ("brownish", "Brownish"),
+    ]
+    for row in data:
+        checked = [label for field, label in color_fields if row.get(field)]
+        row["color_assessment"] = ", ".join(checked)
+        # Remove the individual color fields so only 'color_assessment' is in report
+        for field, _ in color_fields:
+            row.pop(field, None)
+
+    columns = [
+        {"label": "Roast Batch", "fieldname": "roast_batch", "fieldtype": "Data"},
+        {"label": "Sample No.", "fieldname": "sample_no", "fieldtype": "Data"},
+        {"label": "Roast Date", "fieldname": "roast_date", "fieldtype": "Date"},
+        {"label": "Roast Time", "fieldname": "roast_time", "fieldtype": "Time"},
+        {"label": "Roast Level", "fieldname": "roast_level", "fieldtype": "Data"},
+
+        # Extrinsic
+        {"label": "Assessor Name", "fieldname": "assessor_name", "fieldtype": "Data"},
+        {"label": "Assessment Date", "fieldname": "assessment_date", "fieldtype": "Date"},
+        {"label": "Purpose", "fieldname": "purpose", "fieldtype": "Data"},
+        {"label": "Country", "fieldname": "country", "fieldtype": "Data"},
+        {"label": "Region", "fieldname": "region", "fieldtype": "Data"},
+        {"label": "Farm/Coop Name", "fieldname": "farm_or_coop_name", "fieldtype": "Data"},
+        {"label": "Producer Name", "fieldname": "producer_name", "fieldtype": "Data"},
+        {"label": "Species", "fieldname": "species", "fieldtype": "Data"},
+        {"label": "Variety", "fieldname": "variety", "fieldtype": "Data"},
+        {"label": "Harvest Date/Year", "fieldname": "harvest_date_year", "fieldtype": "Data"},
+        {"label": "Other Farming Attribute", "fieldname": "other_farming_attribute", "fieldtype": "Data"},
+        {"label": "Farming Notes", "fieldname": "farming_notes", "fieldtype": "Data"},
+        {"label": "Processor Name", "fieldname": "processor_name", "fieldtype": "Data"},
+        {"label": "Process Type", "fieldname": "process_type", "fieldtype": "Data"},
+        {"label": "Processing Notes", "fieldname": "processing_notes", "fieldtype": "Data"},
+        {"label": "Trading Size Grade", "fieldname": "trading_size_grade", "fieldtype": "Data"},
+        {"label": "Trading ICO Number", "fieldname": "trading_ico_number", "fieldtype": "Data"},
+        {"label": "Trading Other Grade", "fieldname": "trading_other_grade", "fieldtype": "Data"},
+        {"label": "Trading Other Attribute", "fieldname": "trading_other_attribute", "fieldtype": "Data"},
+        {"label": "Trading Notes", "fieldname": "trading_notes", "fieldtype": "Data"},
+        {"label": "Certifications", "fieldname": "certifications", "fieldtype": "Data"},
+        {"label": "Certification Notes", "fieldname": "certification_notes", "fieldtype": "Data"},
+        {"label": "General Notes", "fieldname": "general_notes", "fieldtype": "Data"},
+
+        # Physical Assessment - Color (as one column)
+        {"label": "Color Assessment", "fieldname": "color_assessment", "fieldtype": "Data"},
+
+        # Physical Assessment - Moisture & Summary
+        {"label": "Moisture (%)", "fieldname": "moisture", "fieldtype": "Float"},
+        {"label": "Total Full Defects", "fieldname": "total_full_defects", "fieldtype": "Int"},
+        {"label": "Max Screen Size", "fieldname": "max_screen_size", "fieldtype": "Int"},
+        {"label": "Physical Grade", "fieldname": "physical_grade", "fieldtype": "Int"},
+
+        # Affective
+        {"label": "Affective Total Score", "fieldname": "affective_total_score", "fieldtype": "Int"},
+        {"label": "Affective Grade", "fieldname": "affective_grade", "fieldtype": "Int"}
     ]
 
-    EXTRINSIC_FIELDS = [
-        "assessor_name", "assessment_date", "purpose", "country", "region",
-        "farm_or_coop_name", "producer_name", "species", "variety", "harvest_date_year",
-        "other_farming_attribute", "farming_notes", "processor_name", "process_type",
-        "processing_notes", "trading_size_grade", "trading_ico_number",
-        "trading_other_grade", "trading_other_attribute", "trading_notes",
-        "certifications", "certification_notes", "general_notes"
-    ]
-    ATTRIBUTE_FLAGS = {
-        "fragrance": [
-            "floral", "fruity", "berry", "dried_fruit", "citrus_fruit", "sweet",
-            "brown_sugar", "vanilla", "roasted", "cereal", "nutty_cocoa", "cocoa",
-            "burnt", "tobacco", "spice", "sour", "fermented", "green_veg",
-            "musty_earthy", "woody", "chemical", "other"
-        ],
-        "aroma": [
-            "floral", "fruity", "berry", "dried_fruit", "citrus_fruit", "sweet",
-            "brown_sugar", "vanilla", "roasted", "cereal", "nutty_cocoa", "cocoa",
-            "burnt", "tobacco", "spice", "sour", "fermented", "green_veg",
-            "musty_earthy", "woody", "chemical", "other"
-        ],
-        "mouthfeel": ["rough", "oily", "smooth", "drying", "metallic"]
-    }
-
-    flag_fields = [f"{group}_{flag}" for group, flags in ATTRIBUTE_FLAGS.items() for flag in flags]
-
-    desc_records = frappe.get_all(
-        "Descriptive Assessment",
-        fields=DESCRIPTIVE_FIELDS + flag_fields,
-        filters={"roast_batch": roast_batch},
-        ignore_permissions=True,
-        as_list=False
-    )
-
-    ext_entries = frappe.get_all(
-        "Extrinsic Assessment",
-        fields=EXTRINSIC_FIELDS,
-        filters={"roast_batch": roast_batch},
-        order_by="assessment_date desc, creation desc",
-        limit=1,
-        ignore_permissions=True,
-        as_list=False
-    )
-    ext_data = ext_entries[0] if ext_entries else {}
-
-    data = []
-    if desc_records:
-        for record in desc_records:
-            row = {k: record.get(k) for k in DESCRIPTIVE_FIELDS}
-            row.update({k: ext_data.get(k) for k in EXTRINSIC_FIELDS})
-            for group, flags in ATTRIBUTE_FLAGS.items():
-                row[f"{group}_attributes"] = aggregate_flags(record, group, flags)
-            data.append(row)
-    elif ext_data:
-        data.append(ext_data)
-
-    normalized_data = [normalize_row(row) for row in data]
-
-    if not normalized_data:
-        frappe.msgprint(_("No assessment data found for the selected Roast Batch."))
-        return [], []
-
-    columns = get_column_definitions()
-    used_columns = {key for row in normalized_data for key, val in row.items() if val not in (None, "", [], 0)}
-    always_include = {"sample_no", "roast_date", "roast_time", "roast_level"}
-    final_columns = [c for c in columns if c["fieldname"] in used_columns or c["fieldname"] in always_include]
-
-    return final_columns, normalized_data
-
-def aggregate_flags(doc, group_name, flags):
-    return ", ".join([
-        flag.replace("_", " ").title()
-        for flag in flags if doc.get(f"{group_name}_{flag}")
-    ])
-
-def normalize_row(row):
-    out = {}
-    for k, v in row.items():
-        if v is None:
-            out[k] = ""
-        elif isinstance(v, (int, float)):
-            out[k] = v
-        else:
-            out[k] = str(v)
-    return out
-
-def get_column_definitions():
-    return [
-        {"label": label, "fieldname": fname, "fieldtype": ftype, "width": w}
-        for label, fname, ftype, w in [
-            ("Sample No.", "sample_no", "Data", 80),
-            ("Roast Date", "roast_date", "Date", 90),
-            ("Roast Time", "roast_time", "Time", 80),
-            ("Roast Level", "roast_level", "Data", 100),
-            ("Fragrance Intensity", "fragrance_intensity", "Int", 90),
-            ("Fragrance Attributes", "fragrance_attributes", "Data", 200),
-            ("Aroma Intensity", "aroma_intensity", "Int", 90),
-            ("Aroma Attributes", "aroma_attributes", "Data", 200),
-            ("Acidity Intensity", "acidity_intensity", "Int", 90),
-            ("Acidity Notes", "acidity_notes", "Data", 200),
-            ("Sweetness Intensity", "sweetness_intensity", "Int", 90),
-            ("Sweetness Notes", "sweetness_notes", "Data", 200),
-            ("Mouthfeel Intensity", "mouthfeel_intensity", "Int", 90),
-            ("Mouthfeel Attributes", "mouthfeel_attributes", "Data", 200),
-            ("Assessor", "assessor_name", "Data", 120),
-            ("Assessment Date", "assessment_date", "Date", 90),
-            ("Purpose", "purpose", "Data", 150),
-            ("Country", "country", "Data", 120),
-            ("Region", "region", "Data", 120),
-            ("Farm/Co-op", "farm_or_coop_name", "Data", 150),
-            ("Producer", "producer_name", "Data", 150),
-            ("Species", "species", "Data", 120),
-            ("Variety", "variety", "Data", 120),
-            ("Harvest Date/Year", "harvest_date_year", "Data", 120),
-            ("Other Farming Attr.", "other_farming_attribute", "Data", 200),
-            ("Farming Notes", "farming_notes", "Data", 200),
-            ("Processor", "processor_name", "Data", 150),
-            ("Process Type", "process_type", "Data", 100),
-            ("Processing Notes", "processing_notes", "Data", 200),
-            ("Size Grade", "trading_size_grade", "Data", 100),
-            ("ICO Number", "trading_ico_number", "Data", 120),
-            ("Other Grade", "trading_other_grade", "Data", 120),
-            ("Other Trading Attr.", "trading_other_attribute", "Data", 150),
-            ("Trading Notes", "trading_notes", "Data", 200),
-            ("Certifications", "certifications", "Data", 150),
-            ("Certification Notes", "certification_notes", "Data", 200),
-            ("Overall Notes", "general_notes", "Data", 200),
-        ]
-    ]
+    return columns, data
