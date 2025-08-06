@@ -37,6 +37,7 @@ fixtures = [
     "Property Setter",
     "Client Script",
     "Server Script",
+    "Report",
 
     # All custom fields
     {"dt": "Custom Field"},
