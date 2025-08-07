@@ -2,7 +2,7 @@
   "report_name": "Combined Assessment Report",
    "name": "Combined Assessment Report", 
   "doctype": "Descriptive Assessment",
-  "is_standard": "Yes",
+  "is_standard": "No",
   "report_type": "Script Report",
   "module": "roaster",
   "ref_doctype": "Descriptive Assessment",

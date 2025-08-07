@@ -135,5 +135,18 @@ def execute(filters=None):
         {"label": "Affective Total Score", "fieldname": "affective_total_score", "fieldtype": "Int"},
         {"label": "Affective Grade", "fieldname": "affective_grade", "fieldtype": "Int"}
     ]
+  
+    # Clean up numeric fields so no None or NaN is present
+    numeric_fields = [
+        "moisture", "total_full_defects", "max_screen_size",
+        "physical_grade", "affective_total_score", "affective_grade"
+    ]
+    for row in data:
+        for field in numeric_fields:
+            val = row.get(field)
+            if val is None or val == "" or (isinstance(val, float) and str(val).lower() == 'nan'):
+                row[field] = 0
 
     return columns, data
+
+  
