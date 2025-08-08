@@ -1,0 +1,118 @@
+{
+  "doctype": "DocType",
+  "name": "Master Route Plan",
+  "module": "Roaster",
+  "custom": 1,
+  "fields": [
+    {
+      "fieldname": "sub_city",
+      "label": "Sub City",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "route_number",
+      "label": "Route",
+      "fieldtype": "Int",
+      "reqd": 1
+    },
+    {
+      "fieldname": "day",
+      "label": "Day",
+      "fieldtype": "Select",
+      "options": "\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday",
+      "reqd": 1
+    },
+    {
+      "fieldname": "area",
+      "label": "Area",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "gov_count",
+      "label": "GOV",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "ngo_count",
+      "label": "NGO",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "emb_count",
+      "label": "EMB",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "corp_count",
+      "label": "CORP",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "edu_count",
+      "label": "EDU",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "smkt_count",
+      "label": "SMKT",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "expo_count",
+      "label": "EXPO",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "retail_count",
+      "label": "RETAIL",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "dist_count",
+      "label": "DIST",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "caf_count",
+      "label": "CAF",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "hotel_count",
+      "label": "HOTEL",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "rest_count",
+      "label": "REST",
+      "fieldtype": "Int"
+    },
+    {
+      "fieldname": "total_outlets",
+      "label": "Total",
+      "fieldtype": "Int",
+      "read_only": 1
+    },
+    {
+      "fieldname": "marketer",
+      "label": "Marketer",
+      "fieldtype": "Link",
+      "options": "Employee"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ],
+  "is_submittable": 0,
+  "istable": 0,
+  "editable_grid": 1
+}

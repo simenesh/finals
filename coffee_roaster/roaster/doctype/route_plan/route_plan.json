@@ -1,0 +1,32 @@
+{
+  "doctype": "DocType",
+  "name": "Route Plan",
+  "module": "Roaster",
+  "custom": 1,
+  "autoname": "field:route_number",
+  "fields": [
+    {"fieldname": "sub_city", "fieldtype": "Link", "label": "Sub-City", "options": "Location"},
+    {"fieldname": "route_number", "fieldtype": "Int", "label": "Rout"},
+    {"fieldname": "day", "fieldtype": "Select", "label": "Day", "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday"},
+    {"fieldname": "area", "fieldtype": "Data", "label": "Area", "reqd": 1},
+    {"fieldname": "marketer", "fieldtype": "Link", "label": "Marketer", "options": "User"},
+
+    {"fieldname": "gov", "fieldtype": "Int", "label": "GOV"},
+    {"fieldname": "ngo", "fieldtype": "Int", "label": "NGO"},
+    {"fieldname": "emb", "fieldtype": "Int", "label": "EMB"},
+    {"fieldname": "corp", "fieldtype": "Int", "label": "CORP"},
+    {"fieldname": "edu", "fieldtype": "Int", "label": "EDU"},
+    {"fieldname": "smkt", "fieldtype": "Int", "label": "SMKT"},
+    {"fieldname": "expo", "fieldtype": "Int", "label": "EXPO"},
+    {"fieldname": "retail", "fieldtype": "Int", "label": "RETAIL"},
+    {"fieldname": "dist", "fieldtype": "Int", "label": "DIST"},
+    {"fieldname": "caf", "fieldtype": "Int", "label": "CAF"},
+    {"fieldname": "hotel", "fieldtype": "Int", "label": "HOTEL"},
+    {"fieldname": "rest", "fieldtype": "Int", "label": "REST"},
+
+    {"fieldname": "total_outlets", "fieldtype": "Int", "label": "Total", "read_only": 1}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1}
+  ]
+}

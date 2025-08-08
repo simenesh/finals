@@ -49,14 +49,14 @@
       "fieldname": "country",
       "label": "Country",
       "fieldtype": "Select",
-      "options": "Brazil\nBurundi\nColombia\nCosta Rica\nEl Salvador\nEthiopia\nGuatemala\nHonduras\nIndia\nIndonesia\nKenya\nMexico\nNicaragua\nPeru\nRwanda\nTanzania\nUganda\nVietnam\nOther",
+      "options": "Ethiopia\nBrazil\nBurundi\nColombia\nCosta Rica\nEl Salvador\nGuatemala\nHonduras\nIndia\nIndonesia\nKenya\nMexico\nNicaragua\nPeru\nRwanda\nTanzania\nUganda\nVietnam\nOther",
       "reqd": 1
     },
     {
       "fieldname": "region",
       "label": "Region",
       "fieldtype": "Select",
-      "options": "Addis Ababa\nAfar\nAmhara\nBenishangul-Gumuz\nDire Dawa\nGambela\nHarari\nOromia\nSidama\nSomali\nSouthern Nations, Nationalities, and Peoples' Region\nSouth West Ethiopia Peoples' Region",
+      "options": "Sidama\nYirgacheffe\nGedeo\nGuji\nBorena\nKaffa\nSheka\nBench Maji\nIllubabor\nJimma\nWellega\nHoro Gudru\nBuno Bedele\nHarar\nBale Mountains\nOther",
       "reqd": 1
     },
     {
