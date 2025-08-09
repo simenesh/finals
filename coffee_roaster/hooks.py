@@ -32,7 +32,7 @@ doctype_js = {
 
 #Data to be exported with the app
 # Data to be exported with the app
-fixtures = [
+fixtures = []
     # Core customizations (safe)
     "Property Setter",
     "Client Script",
