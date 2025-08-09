@@ -33,27 +33,23 @@ doctype_js = {
 #Data to be exported with the app
 # Data to be exported with the app
 fixtures = [
-    # Generic core customizations
+    # Core customizations (safe)
     "Property Setter",
     "Client Script",
     "Server Script",
-    "Report",
-
-    # All custom fields
     {"dt": "Custom Field"},
-
-    # Custom permissions and notifications
     {"dt": "Custom DocPerm"},
-       # Custom reports and dashboard charts
+
+    # Reports & Charts (whitelist specific reports)
     {"dt": "Report", "filters": [["name", "in", [
         "Coffee Quality Report",
         "Lead Interest Level",
         "Leads by RTM Channel",
-        "Loyalty Profile Summary"
+        "Loyalty Profile Summary",
     ]]]},
     {"dt": "Dashboard Chart"},
 
-    # Workflows
+    # Workflows (whitelist)
     {"dt": "Workflow", "filters": [["name", "in", [
         "Roast Batch Workflow",
         "Roasting Overhead Template Workflow",
@@ -64,25 +60,9 @@ fixtures = [
         "Packaging Cost Item Workflow",
         "Lead Workflow",
         "Customer Interaction Workflow",
-        "Loyalty Profile Workflow"
-    ]]]},
-      {"dt": "Workflow", "filters": [["name", "=", "Lead Workflow"]]},
-
-    # Roaster DocTypes
-    {"dt": "DocType", "filters": [["name", "in", [
-        "Batch Cost",
-        "Raw Bean Cost Item",
-        "Overhead Item",
-        "Packaging Cost Item",
-        "Roasting Overhead Template",
-        "Roasting Overhead Template Item",
-        "Roaster Settings"
+        "Loyalty Profile Workflow",
     ]]]},
 
-    # CRM-specific DocTypes
-    {"dt": "DocType", "filters": [["name", "in", [
-        "Loyalty Profile",
-        "Customer Interaction",
-        "RTM Assignment"
-    ]]]}
+    # Workspaces if you use them
+    "Workspace",
 ]
