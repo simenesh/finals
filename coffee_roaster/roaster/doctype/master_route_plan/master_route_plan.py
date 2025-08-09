@@ -1,5 +1,5 @@
 import frappe
-from frappe.model.document import Document
 
-class MasterRoutePlan(Document):
-    pass
+def autoname(doc, method=None):
+    if not doc.route_order:
+        doc.route_order = 0

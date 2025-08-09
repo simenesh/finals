@@ -1,2 +1,0 @@
--- Optional SQL insert example (can be skipped if not needed)
--- INSERT INTO `tabMaster Route Plan` (name, customer, outlet_type) VALUES ('ROUTE-0001', 'CUST-0001', 'CAF');
