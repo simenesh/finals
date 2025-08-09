@@ -17259,7 +17259,23 @@
     "type": "DocType",
     "url": null
    },
- 
+   {
+    "color": "Grey",
+    "doc_view": "List",
+    "format": null,
+    "icon": null,
+    "kanban_board": null,
+    "label": "Combined Assessment Report",
+    "link_to": "Combined Assessment Report",
+    "parent": "Coffee Roaster App",
+    "parentfield": "shortcuts",
+    "parenttype": "Workspace",
+    "report_ref_doctype": "Descriptive Assessment",
+    "restrict_to_domain": null,
+    "stats_filter": null,
+    "type": "Report",
+    "url": null
+   },
    {
     "color": "Grey",
     "doc_view": "List",
